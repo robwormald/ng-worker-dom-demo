@@ -3,12 +3,16 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Document</title>
-	<script src="./unminified.index.js"></script>
-	<script src="./main.js"></script>
+	<title>NgWorkerDom Demo</title>
+    <script src="/worker-dom/unminified.index.js" defer></script>
 </head>
 <body>
-	<div src="./app.js" ng-worker-app></div>
+	<div src="/app.js" ng-worker-app="demo-app"></div>
+	<script async=false defer>
+		document.addEventListener('DOMContentLoaded', function() {
+			MainThread.upgradeElement(document.querySelector('[ng-worker-app=demo-app]'), '/worker-dom/unminified.worker.js');
+		}, false);
+	</script>
 </body>
 
 

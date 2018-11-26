@@ -1,6 +1,7 @@
 import resolve from 'rollup-plugin-node-resolve';
 import buildOptimizer from '@angular-devkit/build-optimizer';
 import uglify from 'rollup-plugin-uglify';
+import closure from '@ampproject/rollup-plugin-closure-compiler';
 
 const uglifyOptions = {
     warnings: false,
@@ -9,12 +10,10 @@ const uglifyOptions = {
       comments: false,
       webkit: true,
 		},
-		mangle: false,
-
     compress: {
-      //pure_getters: true,
-      //passes: 3,
-      //inline:1,
+      pure_getters: true,
+      passes: 3,
+      inline:1,
 
       global_defs: {
         ngDevMode: false,
@@ -35,27 +34,10 @@ export default [
 				module: true,
 				//extensions: ['mjs', 'js']
 			}),
-			// optimizer({
-			// 	sideEffectFreeModules: ['']
-			// }),
-			//closure()
-			uglify.uglify(uglifyOptions)
-		]
-	},
-	{
-		input: 'lib/main.js',
-		output: {
-			file: 'public/main.js',
-			format: 'iife',
-			name: ''
-		},
-		plugins: [
-			resolve({
-				module: true,
-				//extensions: ['mjs', 'js']
+			optimizer({
+				sideEffectFreeModules: ['']
 			}),
-			//closure()
-			//uglify.uglify(uglifyOptions)
+			uglify.uglify(uglifyOptions)
 		]
 	}
 ]

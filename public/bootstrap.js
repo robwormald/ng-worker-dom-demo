@@ -1,0 +1,1 @@
+'use strict';var ngWorkerApp=function(b){function c(a){a=document.querySelector("[ng-worker-app="+a+"]");MainThread.upgradeElement(a,"worker.js")}document.addEventListener("DOMContentLoaded",function(){return c("demo-app")});b.bootstrap=c;return b}({});

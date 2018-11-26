@@ -24,10 +24,18 @@ export class HelloWorld {
   }
 }
 
-const host = document.createElement('hello-world');
-document.body.appendChild(host);
 
-renderComponent(HelloWorld, {host});
+//wrapping RAF
+function scheduler(fn:any){
+	requestAnimationFrame(fn)
+}
+
+//weird timing issue
+requestAnimationFrame(() => {
+	const host = document.createElement('hello-world');
+	document.body.appendChild(host);
+	renderComponent(HelloWorld, {host, scheduler});
+});
 
 
 
